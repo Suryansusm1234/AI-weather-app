@@ -6,7 +6,7 @@
 
 ## 🌐 Live Demo
 
-[Weatherwise Live App](#)
+[Weatherwise Live App](https://ai-weather-app-black.vercel.app/)
 
 ---
 
