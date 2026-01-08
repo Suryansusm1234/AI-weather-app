@@ -1,6 +1,6 @@
 "use client"
 import React, { useState,  JSX } from 'react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from "@google/genai";
 import {
   Search,
  
@@ -73,8 +73,8 @@ export default function WeatherWise() {
 
   const getAISuggestions = async (weather: WeatherData) => {
     try {
-      const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: 'models/gemini-pro' });
+      const genAI = new  GoogleGenAI({apiKey:GEMINI_API_KEY});
+     
       const prompt = `As a fashion expert, suggest appropriate clothing and best time to go out for:
       - Current temperature: ${weather.temp}°C (feels like ${weather.feelsLike}°C)
       - Weather condition: ${weather.description}
@@ -87,14 +87,15 @@ export default function WeatherWise() {
       2. Recommended accessories
       3. Special considerations
       Use simple, clear language without markdown formatting.`;
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
+      const result = await genAI.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents :prompt});
+     
+      console.log(result);
       
       // Clean up the response text
-      const text = response.text()
-        .replace(/\*\*/g, '') // Remove bold markdown
-        .replace(/\*/g, '•')  // Convert asterisks to bullet points
-        .trim();
+      const text = result.text?.replace(/\*\*/g, '').replace(/\*/g, '•').trim() || ''
+       
   
       return text;
     } catch (err) {
