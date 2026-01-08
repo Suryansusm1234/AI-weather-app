@@ -74,7 +74,7 @@ export default function WeatherWise() {
   const getAISuggestions = async (weather: WeatherData) => {
     try {
       const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-      const model = genAI.getGenerativeModel({ model: 'models/gemini-1.5-flash' });
+      const model = genAI.getGenerativeModel({ model: 'models/gemini-pro' });
       const prompt = `As a fashion expert, suggest appropriate clothing and best time to go out for:
       - Current temperature: ${weather.temp}°C (feels like ${weather.feelsLike}°C)
       - Weather condition: ${weather.description}
